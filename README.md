@@ -1,9 +1,7 @@
 <div align="center">
-  <h1>🌐 YiTranslate (桌面翻譯小工具)</h1>
+  <h1>🌐 YiTranslate</h1>
   <p><b>一個簡單、輕量 Windows 全域桌面翻譯工具</b></p>
 </div>
-
-<br/>
 
 ## 📖 專案簡介
 **YiTranslate** 是一款常駐在 Windows 系統列的輕量化翻譯工具。  
@@ -21,7 +19,7 @@
 
 ---
 
-## 🛠️ 開發技術棧
+## 🛠️ 開發技術
 - **Python 3**
 - `keyboard`：監聽全域快捷鍵
 - `pyperclip`：剪貼簿操作與讀取
@@ -69,4 +67,4 @@
 
 
 ## 🤝 貢獻與反饋
-歡迎提出 Issue 或是提交 Pull Request 來讓這個小工具變得更好！如果你覺得這個工具有幫助到你，請不要吝嗇給予一顆 ⭐ **Star**！
+歡迎提出 Issue 或是提交 Pull Request 來讓這個小工具變得更好！如果你覺得這個工具有幫助到你，吝嗇給予一顆 ⭐ **Star**！
