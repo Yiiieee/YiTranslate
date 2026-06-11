@@ -35,7 +35,7 @@
 
 ### 方法一：使用打包好的執行檔 
 
-1. 雙擊執行 `QuickTranslator.exe`。
+1. 雙擊執行 `QuickTranslator.exe` (DesktopTranslator/dist/)。
 2. 在右下角系統列 (System Tray) 會看到一個藍色的圖示。
 3. 反白任何想翻譯的文字，按下預設快捷鍵 `Ctrl + Shift + Y`，即可看到翻譯結果。
 
@@ -67,20 +67,6 @@
 
 ---
 
-## 📦 如何打包成 .exe 執行檔
-如果你想要自己將原始碼打包為 Windows 獨立執行檔，專案內已提供了 `QuickTranslator.spec` 檔案，請依照以下步驟：
-
-1. 安裝 PyInstaller：
-   ```bash
-   pip install pyinstaller
-   ```
-2. 執行打包指令：
-   ```bash
-   pyinstaller QuickTranslator.spec
-   ```
-3. 打包完成後，可以在 `dist/` 資料夾中找到 `QuickTranslator.exe`。
-
----
 
 ## 🤝 貢獻與反饋
 歡迎提出 Issue 或是提交 Pull Request 來讓這個小工具變得更好！如果你覺得這個工具有幫助到你，請不要吝嗇給予一顆 ⭐ **Star**！
