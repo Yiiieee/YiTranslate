@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Quick Translator",
+  "version": "1.0",
+  "description": "反白文字並按下快捷鍵即可快速翻譯",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "contextMenus",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["style.css"]
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_title": "Quick Translator"
+  },
+  "commands": {
+    "translate_shortcut": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "翻譯反白的文字"
+    }
+  }
+}
