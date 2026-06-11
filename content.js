@@ -39,7 +39,28 @@ function showTooltip(text, rect) {
 
   const tooltip = document.createElement('div');
   tooltip.className = 'quick-translator-tooltip';
-  tooltip.innerText = text;
+
+  const header = document.createElement('div');
+  header.className = 'quick-translator-header';
+  
+  const dragHandle = document.createElement('span');
+  dragHandle.className = 'quick-translator-drag-handle';
+  dragHandle.innerText = '⋮⋮';
+  
+  const closeBtn = document.createElement('span');
+  closeBtn.className = 'quick-translator-close';
+  closeBtn.innerText = '×';
+  closeBtn.onclick = removeTooltip;
+
+  header.appendChild(dragHandle);
+  header.appendChild(closeBtn);
+
+  const content = document.createElement('div');
+  content.className = 'quick-translator-content';
+  content.innerText = text;
+
+  tooltip.appendChild(header);
+  tooltip.appendChild(content);
 
   document.body.appendChild(tooltip);
 
@@ -69,6 +90,43 @@ function showTooltip(text, rect) {
   tooltip.style.top = `${top}px`;
   tooltip.style.left = `${left}px`;
   
+  // 拖曳邏輯
+  let isDragging = false;
+  let dragOffsetX = 0;
+  let dragOffsetY = 0;
+
+  const onMouseDown = (e) => {
+    if (e.target === closeBtn) return;
+    isDragging = true;
+    dragOffsetX = e.clientX - tooltip.getBoundingClientRect().left;
+    dragOffsetY = e.clientY - tooltip.getBoundingClientRect().top;
+    tooltip.style.transition = 'none'; // 停止 transition 以避免拖曳時卡頓
+    e.preventDefault();
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDragging) return;
+    tooltip.style.left = `${e.clientX - dragOffsetX + window.scrollX}px`;
+    tooltip.style.top = `${e.clientY - dragOffsetY + window.scrollY}px`;
+  };
+
+  const onMouseUp = () => {
+    if (isDragging) {
+      isDragging = false;
+      tooltip.style.transition = 'opacity 0.2s ease-in-out, transform 0.2s ease-in-out';
+    }
+  };
+
+  header.addEventListener('mousedown', onMouseDown);
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+
+  tooltip._dragCleanup = () => {
+    header.removeEventListener('mousedown', onMouseDown);
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
   // 顯示動畫
   setTimeout(() => {
     tooltip.classList.add('show');
@@ -79,6 +137,7 @@ function showTooltip(text, rect) {
 
 function removeTooltip() {
   if (activeTooltip) {
+    if (activeTooltip._dragCleanup) activeTooltip._dragCleanup();
     activeTooltip.remove();
     activeTooltip = null;
   }

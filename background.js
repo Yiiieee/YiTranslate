@@ -1,5 +1,27 @@
 // background.js
 
+// 快取設定 (LRU Cache) 以提升速度並降低資源消耗
+const translationCache = new Map();
+const MAX_CACHE_SIZE = 100;
+
+function getCachedTranslation(key) {
+  if (translationCache.has(key)) {
+    const value = translationCache.get(key);
+    translationCache.delete(key);
+    translationCache.set(key, value);
+    return value;
+  }
+  return null;
+}
+
+function setCachedTranslation(key, value) {
+  if (translationCache.size >= MAX_CACHE_SIZE) {
+    const firstKey = translationCache.keys().next().value;
+    translationCache.delete(firstKey);
+  }
+  translationCache.set(key, value);
+}
+
 // 建立右鍵選單
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
@@ -44,19 +66,26 @@ async function handleTranslation(text, tab, rect = null) {
     const sl = items.sourceLang;
     const tl = items.targetLang;
     
-    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
+    const cacheKey = `${sl}_${tl}_${text}`;
+    let translatedText = getCachedTranslation(cacheKey);
     
-    const res = await fetch(url);
-    const data = await res.json();
-    
-    let translatedText = "";
-    if (data && data[0]) {
-      data[0].forEach(item => {
-        if (item[0]) translatedText += item[0];
-      });
-    }
+    if (!translatedText) {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(text)}`;
+      
+      const res = await fetch(url);
+      const data = await res.json();
+      
+      translatedText = "";
+      if (data && data[0]) {
+        data[0].forEach(item => {
+          if (item[0]) translatedText += item[0];
+        });
+      }
 
-    if (!translatedText) throw new Error("Translation empty");
+      if (!translatedText) throw new Error("Translation empty");
+      
+      setCachedTranslation(cacheKey, translatedText);
+    }
 
     // 嘗試在網頁中顯示浮動視窗 (透過 Content Script)
     chrome.tabs.sendMessage(tab.id, { 
