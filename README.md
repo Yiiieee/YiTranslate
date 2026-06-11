@@ -1,15 +1,14 @@
 <div align="center">
-  <h1>🌐 Quick Translator (桌面翻譯小工具)</h1>
-  <p><b>一個簡單、輕量、且強大的 Windows 全域桌面翻譯工具</b></p>
+  <h1>🌐 YiTranslate (桌面翻譯小工具)</h1>
+  <p><b>一個簡單、輕量 Windows 全域桌面翻譯工具</b></p>
 </div>
 
 <br/>
 
 ## 📖 專案簡介
-**Quick Translator** 是一款常駐在 Windows 系統列的輕量化翻譯工具。  
+**YiTranslate** 是一款常駐在 Windows 系統列的輕量化翻譯工具。  
 無論你是在閱讀 PDF 論文、瀏覽網頁、還是撰寫程式，只要 **反白選取文字** 並按下 **快捷鍵**，翻譯結果就會瞬間在滑鼠游標的位置彈出，讓你能夠保持專注，不需頻繁切換視窗！
 
-我們特別針對 **PDF 文件** 複製時常見的「不正常斷行」問題進行了優化處理，大幅提升翻譯的準確度。
 
 ---
 
@@ -45,7 +44,7 @@
 
 1. **複製專案：**
    ```bash
-   git clone https://github.com/你的帳號/DesktopTranslator.git
+   git clone https://github.com/Yiiieee/YiTranslate.git
    cd DesktopTranslator
    ```
 2. **安裝依賴套件：**
@@ -86,6 +85,3 @@
 
 ## 🤝 貢獻與反饋
 歡迎提出 Issue 或是提交 Pull Request 來讓這個小工具變得更好！如果你覺得這個工具有幫助到你，請不要吝嗇給予一顆 ⭐ **Star**！
-
-## 📄 授權條款
-本專案採用 [MIT License](LICENSE) 授權。
