@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🌐 YiTranslate</h1>
+  <h1>🌐 小奕譯</h1>
   <p><b>一個簡單、輕量 Windows 全域桌面翻譯工具</b></p>
 </div>
 
